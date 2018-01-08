@@ -1,0 +1,322 @@
+<div class="row" ng-controller="settings as ctrl">
+	<div class="col-lg-12">
+		<ul class="nav nav-tabs tabs">
+			<li class="active tab"><a href="javascript:void('0')"
+				ng-click='openActiveTab("home")' data-toggle="tab"
+				aria-expanded="false"> <span class="visible-xs"><i
+						class="fa fa-home"></i></span> <span class="hidden-xs">General</span>
+			</a></li>
+			<li class="tab"><a href="javascript:void('0')"
+				ng-click='openActiveTab("settings")' data-toggle="tab"
+				aria-expanded="false"> <span class="visible-xs"><i
+						class="fa fa-user"></i></span> <span class="hidden-xs">Account</span>
+			</a></li>
+			
+			<li class="tab"><a href="javascript:void('0')"
+				ng-click='openActiveTab("s3")' data-toggle="tab"
+				aria-expanded="false"> <span class="visible-xs"><i
+						class="fa fa-user"></i></span> <span class="hidden-xs">S3 Archiving</span>
+			</a></li>
+			
+			<li class="tab"><a href="javascript:void('0')"
+				ng-click='openActiveTab("users")' data-toggle="tab"
+				aria-expanded="false"> <span class="visible-xs"><i
+						class="fa fa-user"></i></span> <span class="hidden-xs">Users</span>
+			</a></li>
+
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane {{active}}" id="home-12"
+				ng-show="currentTab==='home'">
+
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Username</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">prasanth.viswanatham@gmail.com</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">
+								<a href="javascript:void('0')" ng-click="openPasswordDialog()">
+									Change Password</a>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="tab-pane {{active}}" id="profile-12"
+				ng-show="currentTab==='settings'">
+				<div class="row">
+					<div class="col-md-10">
+						<h4>Account Overview</h4>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-primary waves-effect w-md waves-light m-b-5">Upgrade Your Account</button>
+					</div>
+				</div>
+				
+				<br/>
+				<div class="row">
+						
+						<form class="form-horizontal">
+							
+							<div class="row">
+								<div class="col-md-12">
+										<div class="col-md-6">
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Name:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">{{ctrl.userDetails.companyName}}</p>
+												</div>
+											</div>
+							
+										<div class="form-group">
+											  <label class="col-sm-2 control-label">Plan Type:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">{{ctrl.userDetails.planName}}</p>
+												</div>
+										</div>
+										
+										<div class="form-group">
+											  <label class="col-sm-2 control-label">Users:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">1 of {{ctrl.userDetails.users}} users used</p>
+												</div>
+										</div>	
+										
+										
+										
+										</div>
+										
+										<div class="col-md-6">
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Daily Ingest:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">{{ctrl.userDetails.dailyIngest}}</p>
+												</div>
+											</div>
+							
+										<div class="form-group">
+											  <label class="col-sm-2 control-label">Retention:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">{{ctrl.userDetails.retention}}</p>
+												</div>
+											</div>
+										
+										
+										
+										<div class="form-group">
+											  <label class="col-sm-2 control-label">Max Dashboards:</label>
+												<div class="col-sm-10">
+													<p class="form-control-static">{{ctrl.userDetails.alerts}}</p>
+												</div>
+											</div>	
+											
+										</div>
+										
+								</div>
+							</div>
+							
+						</form>
+				</div>
+				
+				
+
+			</div>
+			<div class="tab-pane {{active}}" id="profile-12"
+				ng-show="currentTab==='s3'">
+				
+				<h4>S3 Archiving  </h4>
+				
+				<br/>
+				<div class="row">
+						
+						<form class="form-horizontal">
+							
+							
+						</form>
+				</div>
+			</div>
+			<div class="tab-pane {{active}}" id="profile-12"
+				ng-show="currentTab==='users'">
+				
+				<div class="row">
+					<div class="col-md-10">
+						
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-primary waves-effect waves-light w-xs m-b-5" ng-click="displayCreateUserTemplate()"><i class="md md-person-add"></i></button>
+					</div>
+				</div>
+				
+				<br/>
+				 
+				<div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="table-responsive">
+                                        
+<table class="table" datatable="ng">
+							<thead>
+								<tr>
+									<th>Username</th>
+									<th>Full Name</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									ng-repeat="data in ctrl.allUsers">
+									<td>{{data.userName}}</td>
+									<td>{{data.fullName}}</td>
+									<td>{{data.status}}</td>
+									
+									<td>
+									<button class="btn btn-xs btn-info"
+											ng-click="ctrl.displayUpdateForIndicator(data.id)">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</button>
+										<button class="btn btn-xs btn-danger"
+											ng-click="ctrl.deleteWhiteList(data.id)">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</button></td>
+								</tr>
+							</tbody>
+							
+						</table>
+						</div></div></div>	
+				 
+			</div>
+
+		</div>
+	</div>
+
+	<div id="change-password-modal" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none;">
+		 <form class="form-horizontal" role="form" ng-submit="saveChanges()" name="alertsForm" >	
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" ng-click="closeDailog()">×</button>
+					<h4 class="modal-title">Change Password</h4>
+				</div>
+				<div class="modal-body">
+				<div uib-alert ng-repeat="alert in ctrl.alertMessagaes"
+						class="alert" ng-class="'alert-' + (alert.type || 'warning')"
+						close="closeAlert($index)">{{alert.msg}}</div>
+					
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="field-1" class="control-label">Current
+										Password</label> <input type="password" ng-model="userSettings.password" class="form-control" id="field-1" required="required">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="field-2" class="control-label">New Password</label>
+									<input type="password" ng-model="userSettings.newPassword" class="form-control"
+										id="field-2" required="required">
+								</div>
+							</div>
+
+							
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="field-3" class="control-label">Confirm
+											Password</label> <input type="password" ng-model="userSettings.confirmPassword"  class="form-control"
+											id="field-3" required="required">
+									</div>
+								</div>
+							
+						</div>
+					
+					<div class="col-md-6">
+						<ul>
+							<li>Minimum 8 characters</li>
+							<li>Maximum 32 characters</li>
+							<li>Lowercase letter (a-z)</li>
+							<li>Uppercase letter (A-Z)</li>
+							<li>Number (0-9)</li>
+							<li>Special characters</li>
+							<li>Both passwords match</li>
+
+						</ul>
+					</div>
+
+	</div>
+
+				</div>
+				<div class="modal-footer">
+					
+					<button type="submit" class="btn btn-info waves-effect waves-light">Save changes</button>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div id="create-user-modal" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none;">
+		 <form class="form-horizontal" role="form" ng-submit="createUsers()" name="alertsForm" >	
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" ng-click="closeDailog()">×</button>
+					<h4 class="modal-title">Create User</h4>
+				</div>
+				<div class="modal-body">
+				<div uib-alert ng-repeat="alert in ctrl.alertMessagaes"
+						class="alert" ng-class="'alert-' + (alert.type || 'warning')"
+						close="closeAlert($index)">{{alert.msg}}</div>
+					
+					
+					<div class="row">
+						<div class="col-md-8">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="field-1" class="control-label">Email *</label> 
+									<input type="email" ng-model="userSettings.userName" class="form-control"  required="required">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="field-2" class="control-label">Full Name *</label>
+									<input type="text" ng-model="userSettings.fullName" class="form-control"
+									 required="required">
+								</div>
+							</div>
+
+							
+								
+							
+						</div>
+					
+					
+
+	</div>
+
+				</div>
+				<div class="modal-footer">
+					
+					<button type="submit" class="btn btn-info waves-effect waves-light">Save changes</button>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+
+
+
+
+
+
+</div>

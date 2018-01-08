@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: siem
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: prasanthviswanadham
+Implementation-Vendor-Id: com.tmcl.siem
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/siem/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
